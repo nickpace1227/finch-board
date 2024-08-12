@@ -315,14 +315,14 @@ pcbs:
         adjust:
           shift: [7.8, -9.5]
       # Controller
-      promicro:
-        what: promicro
+      nice_nano:
+        what: nice_nano
         params:
           orientation: up
         where:
-          ref: matrix_fifth_num
-          shift: [0, -5]
-          rotate: -90
+          ref: matrix_seventh_num
+          shift: [-9, -1]
+          rotate: -180
       # Battery jack
       jstph:
         what: jstph
