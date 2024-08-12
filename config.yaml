@@ -76,7 +76,7 @@ outlines:
   keys:
     - what: rectangle
       where: true
-      size: [14, 14]
+      size: [15, 15]
       fillet: 0
   board_left:
     - what: polygon
@@ -95,9 +95,9 @@ outlines:
         - ref: matrix_fourth_num
           shift: [-pushX - pad, padY]
         - ref: matrix_fourth_num
-          shift: [padX, padY]
+          shift: [padX - 2pad, padY]
         - ref: matrix_fifth_num
-          shift: [-pushX + pad, padY]
+          shift: [-pushX - pad, padY]
         - ref: matrix_fifth_num
           shift: [padX, padY]
         - ref: matrix_sixth_num
@@ -113,17 +113,17 @@ outlines:
         - ref: matrix_seventh_mod
           shift: [padX, -padY]
         - ref: matrix_seventh_mod
-          shift: [-pushX, -padY]
+          shift: [-pushX - 2pad, -padY]
         - ref: matrix_sixth_mod
-          shift: [padX, -padY]
+          shift: [padX - 3pad, -padY]
         - ref: matrix_sixth_mod
-          shift: [-pushX, -padY]
+          shift: [-pushX - pad - 0.0001, -padY]
         - ref: matrix_fifth_mod
           shift: [pushX - pad, -padY]
         - ref: matrix_fifth_mod
-          shift: [-padX, -padY]
+          shift: [-padX + pad + pad, -padY]
         - ref: matrix_fourth_mod
-          shift: [pushX - pad, -padY]
+          shift: [pushX + pad, -padY]
         - ref: matrix_fourth_mod
           shift: [-pushX + pad, -padY]
         - ref: matrix_third_mod
@@ -157,9 +157,9 @@ outlines:
         - ref: mirror_matrix_fourth_num
           shift: [-pushX - pad, padY]
         - ref: mirror_matrix_fourth_num
-          shift: [padX, padY]
+          shift: [padX - 2pad, padY]
         - ref: mirror_matrix_fifth_num
-          shift: [-pushX + pad, padY]
+          shift: [-pushX - pad, padY]
         - ref: mirror_matrix_fifth_num
           shift: [padX, padY]
         - ref: mirror_matrix_sixth_num
@@ -175,17 +175,17 @@ outlines:
         - ref: mirror_matrix_seventh_mod
           shift: [padX, -padY]
         - ref: mirror_matrix_seventh_mod
-          shift: [-pushX, -padY]
+          shift: [-pushX - 2pad, -padY]
         - ref: mirror_matrix_sixth_mod
-          shift: [padX, -padY]
+          shift: [padX - 3pad, -padY]
         - ref: mirror_matrix_sixth_mod
-          shift: [-pushX, -padY]
+          shift: [-pushX - pad, -padY]
         - ref: mirror_matrix_fifth_mod
           shift: [pushX - pad, -padY]
         - ref: mirror_matrix_fifth_mod
-          shift: [-padX, -padY]
+          shift: [-padX + 2pad, -padY]
         - ref: mirror_matrix_fourth_mod
-          shift: [pushX - pad, -padY]
+          shift: [pushX + pad, -padY]
         - ref: mirror_matrix_fourth_mod
           shift: [-pushX + pad, -padY]
         - ref: mirror_matrix_third_mod
@@ -290,13 +290,12 @@ pcbs:
       # Main diodes
       diode_main:
         what: diode
-        where: /^matrix_(?!(?:sixth_top|sixth_home|third_home|first_num|first_bottom|fourth_top|fourth_mod)).*/
+        where: /^matrix_(?!(?:sixth_top|sixth_home)).*/
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          shift: [7.8, -3.5]
-          rotate: 90
+          shift: [0, 5]
       # Move a diode so it doesn't conflict with controller
       diode_weird1:
         what: diode
@@ -306,7 +305,6 @@ pcbs:
           to: "{{row_net}}"
         adjust:
           shift: [7.8, -16.0]
-          rotate: 90
       # Move another diode so it doesn't conflict with controller
       diode_weird2:
         what: diode
@@ -316,35 +314,15 @@ pcbs:
           to: "{{row_net}}"
         adjust:
           shift: [7.8, -9.5]
-          rotate: 90
-      # Move some other diodes so they don't conflict with mounting holes
-      diode_mounting_hole_conflict1:
-        what: diode
-        where: /^matrix_(?:third_home|first_num|first_bottom)/
-        params:
-          from: "{{colrow}}"
-          to: "{{row_net}}"
-        adjust:
-          shift: [7.8, 3.5]
-          rotate: 90
-      diode_mounting_hole_conflict2:
-        what: diode
-        where: /^matrix_(?:fourth_top|fourth_mod)/
-        params:
-          from: "{{colrow}}"
-          to: "{{row_net}}"
-        adjust:
-          shift: [7.8, -4.5]
-          rotate: 90
       # Controller
-      nice_nano:
-        what: nice_nano
+      promicro:
+        what: promicro
         params:
           orientation: up
         where:
-          ref: matrix_sixth_num
-          shift: [-9, -1.5]
-          rotate: -180.0
+          ref: matrix_fifth_num
+          shift: [0, -5]
+          rotate: -90
       # Battery jack
       jstph:
         what: jstph
@@ -378,38 +356,12 @@ pcbs:
           side: B
           from: pos
           to: RAW
-      # Mounting holes
-      hole_bottom_right:
-        what: mountinghole
-        where:
-          ref: matrix_fifth_mod
-          shift: [-pushX, pushY]
-      hole_bottom_left:
-        what: mountinghole
-        where:
-          ref: matrix_first_bottom
-          shift: [pushX, -pushY]
-      hole_top_left:
-        what: mountinghole
-        where:
-          ref: matrix_second_num
-          shift: [-pushX, -pushY]
-      hole_top_right:
-        what: mountinghole
-        where:
-          ref: matrix_fifth_top
-          shift: [-pushX, pushY]
-      hole_center:
-        what: mountinghole
-        where:
-          ref: matrix_fourth_bottom
-          shift: [-pushX, pushY]
       # Write "Finch" on the PCB
       front_text: &text
         what: text
         where: &textWhere
-          ref: matrix_fourth_num
-          shift: [-8.7, 5.5]
+          ref: matrix_fifth_mod
+          shift: [-6, -9]
         params: &textParams
           text: Finch
           justify: left
@@ -504,41 +456,15 @@ pcbs:
           side: B
           from: pos
           to: RAW
-      # Mounting holes
-      hole_bottom_right:
-        what: mountinghole
-        where:
-          ref: mirror_matrix_fifth_mod
-          shift: [-pushX, pushY]
-      hole_bottom_left:
-        what: mountinghole
-        where:
-          ref: mirror_matrix_first_bottom
-          shift: [pushX, -pushY]
-      hole_top_left:
-        what: mountinghole
-        where:
-          ref: mirror_matrix_second_num
-          shift: [-pushX, -pushY]
-      hole_top_right:
-        what: mountinghole
-        where:
-          ref: mirror_matrix_fifth_top
-          shift: [-pushX, pushY]
-      hole_center:
-        what: mountinghole
-        where:
-          ref: mirror_matrix_third_bottom
-          shift: [pushX, pushY]
       # Write "Finch" on the PCB
       front_text: &text
         what: text
         where: &textWhere
-          ref: mirror_matrix_fourth_num
-          shift: [8.7, 5.5]
+          ref: mirror_matrix_fifth_mod
+          shift: [-6, -9]
         params: &textParams
           text: Finch
-          justify: left
+          justify: right
           h_size: 3.0
           v_size: 3.0
           thickness: 0.4
