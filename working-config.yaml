@@ -410,8 +410,8 @@ pcbs:
         params:
           orientation: up
         where:
-          ref: mirror_matrix_seventh_num
-          shift: [-9, 0]
+          ref: mirror_matrix_sixth_num
+          shift: [-9, -1.5]
       # Battery jack
       jstph:
         what: jstph
