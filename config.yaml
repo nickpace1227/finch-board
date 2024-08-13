@@ -290,7 +290,7 @@ pcbs:
       # Main diodes
       diode_main:
         what: diode
-        where: /^matrix_(?!(?:sixth_top|sixth_home)).*/
+        where: /^matrix_(?!(?:sixth_num|seventh_num)).*/
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
@@ -299,21 +299,21 @@ pcbs:
       # Move a diode so it doesn't conflict with controller
       diode_weird1:
         what: diode
-        where: matrix_sixth_top
+        where: matrix_sixth_num
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          shift: [7.8, -16.0]
+          shift: [0, 7]
       # Move another diode so it doesn't conflict with controller
       diode_weird2:
         what: diode
-        where: matrix_sixth_home
+        where: matrix_seventh_num
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          shift: [7.8, -9.5]
+          shift: [0, 4]
       # Controller
       nice_nano:
         what: nice_nano
